@@ -40,10 +40,9 @@ public class MainActivity extends AppCompatActivity {
                     txt.setText("check the connection");
                     return;
                 }
-
-                String jsony = "";
-                jsony = "Id = " + response.body().getId();
+                String jsony = "Id = " + response.body().getId();
                 txt.append(jsony);
+
             }
 
             @Override
@@ -51,5 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }

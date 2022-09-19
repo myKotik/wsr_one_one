@@ -7,6 +7,7 @@ public class DataModel {
     private String title;
     private boolean completed;
 
+
     public int getUserId() {
         return userId;
     }

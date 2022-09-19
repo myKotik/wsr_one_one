@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,15 +19,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main) ;
+        setContentView(R.layout.activity_main);
 
         txt = findViewById(R.id.textview);
 
         // Retrofit builder
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://run.mocky.io")
+                .baseUrl("https://run.mocky.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
 
         MyAPICall myAPICall = retrofit.create(MyAPICall.class);
         Call<DataModel> call = myAPICall.getData();
@@ -36,17 +39,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DataModel> call, Response<DataModel> response) {
 
-                if (response.code() != 200){
+                if (response.code() != 200) {
                     txt.setText("check the connection");
                     return;
                 }
-                String jsony = "Id = " + response.body().getId();
-                txt.append(jsony);
+                //String jsony = "Id = " + response.body().getUserId();
+                txt.append("Id = " + response.body().getTitle());
 
             }
 
             @Override
             public void onFailure(Call<DataModel> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
             }
         });
